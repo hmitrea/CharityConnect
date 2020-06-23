@@ -25,6 +25,9 @@ const pool = new Pool({
 //     FOREIGN KEY (user_id) REFERENCES users(_id), 
 //     FOREIGN KEY (charity_id) REFERENCES charity(_id));
 
+
+// Categories 
+
 module.exports = {
     query: (text, params, callback) => {
         console.log('executed query: ', text);

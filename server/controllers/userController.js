@@ -30,7 +30,7 @@ userController.createUser = (req, res, next) => {
                 //save username
                 console.log(response.rows)
                 res.locals.user = response.rows[0].username;
-                console.log('username: ', res.locals.username)
+                console.log('username: ', res.locals.user)
                 return next();
             }
         })
