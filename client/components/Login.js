@@ -31,7 +31,7 @@ export default function Login(){
             </div>
             <br/>
             <div className='signup'>
-                <form action='/login' onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <label htmlFor="fname">username: </label>
                     <input type="text" id="username" name="username" placeholder='username'/><br/><br/>
                     <label htmlFor="lname">password: </label>
