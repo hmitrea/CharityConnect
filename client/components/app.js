@@ -8,9 +8,12 @@ export default class App extends React.Component
 {
     constructor(props){
         super(props);
-        this.state = { charityRows: []};
+        this.state = { charityRows: [], firstTimeLoad: true};
     }
     componentDidMount(){
+        if (this.state.firstTimeLoad === false){
+            return;
+        }
         const charityResult = [];
         // fetch('https://api.data.charitynavigator.org/v2/Organizations?' +
         //         'app_id=3f3f4a3b&' +
@@ -18,7 +21,7 @@ export default class App extends React.Component
         //         'state=NY&' +
         //         'city=New%20Hyde%20Park&' +
         //         'zip=11040')
-        fetch('https://api.data.charitynavigator.org/v2/Organizations?app_id=acad48f7&app_key=1caab9869fdb918b252c8f56de6b62ce&pageSize=50&sort=RATING')
+        fetch('https://api.data.charitynavigator.org/v2/Organizations?app_id=acad48f7&app_key=1caab9869fdb918b252c8f56de6b62ce&pageSize=1000&sort=RATING')
         .then(response => response.json())
         .then(charityArray => {
             
@@ -31,7 +34,7 @@ export default class App extends React.Component
                 charityObj['charityNavigatorURL'] = currObj.charityNavigatorURL;
                 charityObj['category'] = currObj.category.categoryName;
                 charityObj['cause'] = currObj.cause.causeName;
-                charityObj['ratingImageURL'] = currObj.currentRating.ratingImage.large;
+                charityObj['ratingImageURL'] = currObj.currentRating === undefined ? "" : currObj.currentRating.ratingImage.large;
                 charityObj['advisory'] = currObj.advisories.severity === null ? "none" : currObj.advisories.severity ;
                 const address = currObj.mailingAddress
                 charityObj['address'] = address.city + ", " + address.stateOrProvince + " " + address.postalCode;
