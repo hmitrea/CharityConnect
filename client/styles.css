@@ -1,3 +1,9 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
 .queryResultsRow { 
     display: flex; 
     flex-direction: row;
@@ -40,5 +46,59 @@
 
 
 .navpanel {
-    background-color: white;
+    height: 5vh;
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
 }
+.navpanel h3 {
+    padding-right: 20px;;
+}
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+    background: 
+        url(kissclipart-charity-icon-business-and-commerce-icon-heart-icon-6f0ecfdecdcbc4c2.png)
+        center/ 1100px 1100px
+        no-repeat
+        scroll;
+}
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 95vh;
+}
+.charity-display {
+    border: 1px solid thistle;
+    width: 70vw;
+    height: 90vh;
+}
+.saved-display {
+    border: 1px solid thistle;    
+    width: 30vw;
+    height: 90vh;
+}
+div.oauth-container {
+    background-color:rgb(193, 83, 43);
+    border-radius: 10px;
+    width: 250px;
+    height: 250px;
+}
+.twitterButton, div.oauth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.submitbtn {
+    width: 215px;
+    height: 30px;
+    background-color: white;
+    border-radius: 15px;
+}
+

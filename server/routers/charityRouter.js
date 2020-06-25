@@ -5,8 +5,8 @@ const apiController = require('../controllers/apiControllers')
 
 
 router.get('/', apiController.home, (req, res)=>{
-    console.log('response obj: ', res.locals.response)
-    res.send(200)
+    // console.log('response obj: ', res.locals.response.data)
+    res.status(200).json(res.locals.response.data)
 } /*get the charities */ )
 
 // router.get('/filter', apiController.filter, (req, res)=>{

@@ -1,28 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavPanel from './NavPanel';
 import Login from './Login';
 import MainPage from './MainPage';
 
-export default class App2 extends React.Component{
-    constructor(props){
-        super(props);
-        this.login = false;
-    }
+export default function App2(){
+    const [login, setLogin] = useState({state: false, id: null, name: null})
+    useEffect(() => {
+        //check to see if token cookie is there
+        const value = `${document.cookie}`
+        if(value){
+            const target = value.split(`token=`)[1]
+            if(target){
+                const data = target.split('-')
+                setLogin({state: true, id: data[1], name: data[0]})
+            }
+        }
+    }, [])
+    return (
+        <div>
+            <NavPanel login={login} setLogin={setLogin}/>
+            { login.state === true ? <MainPage /> : <Login login={login} setLogin={setLogin} />}
+        </div>
 
-    render() {
-        return (
-            <div>
-                <Router>
-                    <NavPanel />
-                    <Switch>
-                        <Route exact path='/'  component={Login}/>
-                        {/* <Route exact path='/' component={MainPage}/> */}
-                    </Switch>
-                </Router>
-            </div>
-
-        )
-    }
-    
+    )
 }

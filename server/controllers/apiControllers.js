@@ -6,8 +6,8 @@ const apiController = {};
 
 apiController.home = async (req, res, next)=>{
     // If no requests have been made display the fetch
-    console.log('bodyyyy',req.body) // Ask Tommy where we will get the data
-    const url = req.body.url || 'https://api.data.charitynavigator.org/v2/Organizations?app_id=acad48f7&app_key=1caab9869fdb918b252c8f56de6b62ce&pageSize=10&sort=RATING'
+    //console.log('bodyyyy',req.body) // Ask Tommy where we will get the data
+    const url = req.body.url || 'https://api.data.charitynavigator.org/v2/Organizations?app_id=acad48f7&app_key=1caab9869fdb918b252c8f56de6b62ce&pageSize=50&sort=RATING'
     await axios.get(url)
     .then(response => {
         // saving it to res.locals
@@ -19,12 +19,12 @@ apiController.home = async (req, res, next)=>{
 
 apiController.save = (req, res, next)=>{
     // will post req.body
-    console.log(req.query)
+    // console.log(req.query)
     let { name, financialrating, accountabilityrating, category, href, id} = req.query;
     // uppercase strings
     name = name.toUpperCase();
     category = category.toUpperCase();
-    console.log('uppercase', name, category)
+    // console.log('uppercase', name, category)
     // add charity to charity table
     // check to see if charity exist if it doesnt
     const text1 = `INSERT INTO charity 
@@ -43,7 +43,7 @@ apiController.save = (req, res, next)=>{
         // saved it to db
         const text2 = 'INSERT INTO charity_favs (user_id, charity_id) values ($1, $2)';
         const param2 = [Number(id), Number(response.rows[0]._id)];
-        console.log('param2: ', param2)
+        // console.log('param2: ', param2)
         db.query(text2, param2, (err, response)=>{
             // add charity _id and user _id to join table
             if(err){

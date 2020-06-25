@@ -30,18 +30,27 @@ app.use('/api', charityRouter);
 
 app.get('/login/twitter', passport.authenticate('twitter')); // send request to twitter
 
-app.get('/login', userController.createUser, (req, res)=>{
-  // console.log('loging in without oauth', res.locals.user)
-  // res.sendStatus(200)
-  res.redirect('/api')
+app.post('/login', userController.createUser, (req, res)=>{
+  // if logged in redirect
+  console.log(res.locals.user)
+  if(res.locals.user){
+    res.status(200).json(res.locals.user)
+  }  else {
+    res.status(200)
+  }
 })
 
 app.get('/logout', (req, res)=>{
-  console.log('logout')
+  res.clearCookie('token')
+  res.status(200).redirect('http://localhost:8081/')
 })
 
-app.get('/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/' }), // get a response and direct to failure if it's a failure
-  function(req, res) { res.redirect('/api');  // otherwise the homepage
-}); 
+app.get('/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/' }), userController.createUser, // get a response and direct to failure if it's a failure
+  function(req, res) {
+    //  console.log(res.locals.user)
+     res.cookie('token', `${res.locals.user.username}-${res.locals.user.id}`, { maxAge: 6000 });
+     res.status(200).redirect('http://localhost:8081/')
+    }
+  )
   
 app.listen(3000);
